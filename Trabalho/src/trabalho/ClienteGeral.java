@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -13,10 +14,9 @@ import java.util.Properties;
 public class ClienteGeral {
 
     public static void main(String[] args) {
-        
-        
+
         Properties clientProps = new Properties();
-        try(InputStream properties = new FileInputStream("src/trabalho/cliente.properties")) {
+        try ( InputStream properties = new FileInputStream("src/trabalho/cliente.properties")) {
             clientProps.load(properties);
         } catch (Exception ignored) {
 
@@ -26,9 +26,9 @@ public class ClienteGeral {
         String regPort = clientProps.getProperty("regPort"); //porto do binder
 
         try {
-            
+
             AdClienteGeral obj = (AdClienteGeral) java.rmi.Naming.lookup("rmi://" + regHost + ":" + regPort + "/AdClienteGeral");
-            
+
             while (true) {
                 System.out.println("Selecinar a opção:\n"
                         + "  1: Registar novo anuncio do tipo oferta\n"
@@ -110,22 +110,34 @@ public class ClienteGeral {
                                     genero_P, preco_P, anunciante_P, contacto_P, data_P);
                             break;
                         case 3:
-                            obj.listOfOffers();
+                            List<String> offers = obj.listOfOffers();
+                            for (var s : offers) {
+                                System.out.println(s);
+                            }
                             break;
                         case 4:
-                            obj.listOfSearch();
+                            List<String> searches = obj.listOfSearch();
+                            for (var s : searches) {
+                                System.out.println(s);
+                            }
                             break;
                         case 5:
                             System.out.print("Anunciante:");
                             String anunciante = input.readLine();
 
-                            obj.listByAdvertiser(anunciante);
+                            List<String> adsByAdvertiser= obj.listByAdvertiser(anunciante);
+                            
+                            for(var s : adsByAdvertiser){
+                                System.out.println(s);
+                            }
                             break;
                         case 6:
                             System.out.print("Aid:");
                             String aid = input.readLine();
 
-                            obj.getDetails(aid);
+                            String details = obj.getDetails(aid);
+                            
+                            System.out.println(details);
                             break;
                         case 7:
                             System.out.print("Aid:");
@@ -140,9 +152,14 @@ public class ClienteGeral {
                             System.out.print("Aid:");
                             String aid_C = input.readLine();
 
-                            obj.consultMessages(aid_C);
+                            List<String> messages= obj.consultMessages(aid_C);
+                            
+                            for(var m : messages){
+                                System.out.println(m);
+                            }
                             break;
                         case 9:
+                            obj.exit();
                             return;
                         default:
                             System.out.println("Introduza um valor possivel (1-8).");

@@ -4,6 +4,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -16,16 +18,15 @@ public class AdClienteGestaoImpl extends UnicastRemoteObject implements AdClient
 
     public AdClienteGestaoImpl(PostgresConnector db) throws RemoteException, Exception {
         anuncios = db;
-        anuncios.connect();
         stmt = anuncios.getStatement();
     }
 
     /*Listar anuncios por estado*/
-    public void listAdsByState(String estado) throws RemoteException {
+    public List<String> listAdsByState(String estado) throws RemoteException {
+        List<String> ads = new LinkedList<>();
 
         try {
             ResultSet rs = stmt.executeQuery("SELECT * FROM anuncios WHERE estado='" + estado + "'");
-
             //mostrar resultados
             while (rs.next()) {
                 String tipo_anuncio = rs.getString("tipo_anuncio");
@@ -38,8 +39,10 @@ public class AdClienteGestaoImpl extends UnicastRemoteObject implements AdClient
                 String contacto = rs.getString("contacto");
                 java.sql.Date data = rs.getDate("data");
                 String aid = rs.getString("aid");
+                
+                
 
-                System.out.println(" Tipo de anuncio: " + tipo_anuncio + " Tipo de alojamento: " + tipo_alojamento + " Detalhes: " + detalhes
+                ads.add(" Tipo de anuncio: " + tipo_anuncio + " Tipo de alojamento: " + tipo_alojamento + " Detalhes: " + detalhes
                         + " Zona: " + zona + " Genero: " + genero + " Preco: " + preco + " Anunciante: " + anunciante + " Contacto: " + contacto
                         + " Data: " + data + " Estado: " + estado + " Aid: " + aid);
 
@@ -50,11 +53,14 @@ public class AdClienteGestaoImpl extends UnicastRemoteObject implements AdClient
             e.printStackTrace();
             System.err.println("Problems retrieving data from db...");
         }
+        
+        return ads;
 
     }
 
     /*Obter detalhes de um anuncio*/
-    public void getDetails(String aid) throws RemoteException {
+    public String getDetails(String aid) throws RemoteException {
+        String details= new String();
         try {
             ResultSet rs = stmt.executeQuery("SELECT * FROM anuncios WHERE aid='" + aid + "'");
 
@@ -71,9 +77,9 @@ public class AdClienteGestaoImpl extends UnicastRemoteObject implements AdClient
                 java.sql.Date data = rs.getDate("data");
                 String estado = rs.getString("estado");
 
-                System.out.println(" Tipo de anuncio: " + tipo_anuncio + " Tipo de alojamento: " + tipo_alojamento + " Detalhes: " + detalhes
+                details= " Tipo de anuncio: " + tipo_anuncio + " Tipo de alojamento: " + tipo_alojamento + " Detalhes: " + detalhes
                         + " Zona: " + zona + " Genero: " + genero + " Preco: " + preco + " Anunciante: " + anunciante + " Contacto: " + contacto
-                        + " Data: " + data + " Estado: " + estado + " Aid: " + aid);
+                        + " Data: " + data + " Estado: " + estado + " Aid: " + aid;
 
             }
 
@@ -82,6 +88,7 @@ public class AdClienteGestaoImpl extends UnicastRemoteObject implements AdClient
             e.printStackTrace();
             System.err.println("Problems retrieving data from db...");
         }
+        return details;
 
     }
 
@@ -100,11 +107,15 @@ public class AdClienteGestaoImpl extends UnicastRemoteObject implements AdClient
     /*Alterar o estado de um anuncio*/
     public void modifyAd(String estado, String aid) throws RemoteException {
         try {
-            stmt.executeUpdate("update anuncios set estado=" + estado + " where aid=" + aid);
+            stmt.executeUpdate("update anuncios set estado='" + estado + "' where aid=" + aid);
 
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Problems on insert...");
         }
+    }
+    
+    public void exit(){
+        anuncios.disconnect();
     }
 }

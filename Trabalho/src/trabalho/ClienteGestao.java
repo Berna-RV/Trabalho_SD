@@ -2,7 +2,9 @@ package trabalho;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -13,13 +15,9 @@ public class ClienteGestao {
 
     public static void main(String[] args) {
 
-        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        String clientConfigPath = rootPath + "cliente.properties";
-
         Properties clientProps = new Properties();
-        try {
-            clientProps.load(new FileInputStream(clientConfigPath));
-
+        try ( InputStream properties = new FileInputStream("src/trabalho/cliente.properties")) {
+            clientProps.load(properties);
         } catch (Exception ignored) {
 
         }
@@ -48,15 +46,23 @@ public class ClienteGestao {
                         case 1:
                             System.out.println("Estado:");
                             String estado1 = input.readLine();
-                            obj.listAdsByState(estado1);
+                            List<String> adsByState= obj.listAdsByState(estado1);
+                            
+                            for(var s: adsByState){
+                                System.err.println(s);
+                            }
+                            break;
                         case 2:
                             System.out.println("Aid:");
                             String aid2 = input.readLine();
-                            obj.getDetails(aid2);
+                            String details= obj.getDetails(aid2);
+                            System.out.println(details);
+                            break;
                         case 3:
                             System.out.println("Aid:");
                             String aid3 = input.readLine();
                             obj.aprouveAd(aid3);
+                            break;
                         case 4:
                             System.out.println("Estado:");
                             String estado4 = input.readLine();
@@ -64,8 +70,10 @@ public class ClienteGestao {
                             String aid4 = input.readLine();
 
                             obj.modifyAd(estado4, aid4);
-                        case 5:
                             break;
+                        case 5:
+                            obj.exit();
+                            return;
                         default:
                             System.out.println("Introduzir um número válido.");
 

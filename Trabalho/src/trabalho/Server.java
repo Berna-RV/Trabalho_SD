@@ -21,12 +21,13 @@ public class Server {
     }
 
     public static void setAid(int aux_aid) {
-        aid = aux_aid;
+        aid = aux_aid + 1;
     }
 
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        PostgresConnector BD = null;
+        PostgresConnector BDGeral = null;
+        PostgresConnector BDGestao =null;
         int regPort;
         String HOST;
         String DB;
@@ -35,39 +36,36 @@ public class Server {
 
         try ( InputStream input = new FileInputStream("src/trabalho/server.properties")) {
             Properties serverProps = new Properties();
-            
+
             if (input == null) {
                 System.out.println("Sorry, unable to find server.properties");
                 return;
             }
-            
+
             serverProps.load(input);
-            
+
             regPort = Integer.parseInt(serverProps.getProperty("regPort")); // default RMIRegistry port
             HOST = serverProps.getProperty("host");
             DB = serverProps.getProperty("db");
             USER = serverProps.getProperty("user");
             PW = serverProps.getProperty("pw");
 
-            BD = new PostgresConnector(HOST, DB, USER, PW);
-            BD.connect();
-
-            Statement stmt = BD.getStatement();
+            BDGeral = new PostgresConnector(HOST, DB, USER, PW);
+            BDGeral.connect();
+            
+            BDGestao = new PostgresConnector(HOST, DB, USER, PW);
+            BDGestao.connect();
+            
+            Statement stmt = BDGeral.getStatement();
 
             //Obter o aid com maior numero!!!!
-            //Ainda n funciona!!!!!
             try {
-
+                
                 int aid = 0;
-                ResultSet rs = stmt.executeQuery("SELECT MAX(aid) FROM anuncios");
 
-                while (rs.next()) {
-
-                    if (rs.wasNull()) {
-                        aid = 1;
-                    } else {
-                        aid = rs.getInt(1);
-                    }
+                ResultSet rs = stmt.executeQuery("SELECT MAX(aid) as aid FROM anuncios");
+                if (rs.next() && rs.getInt("aid")!=0) {
+                    aid = rs.getInt("aid");
                 }
 
                 Server.setAid(aid);
@@ -77,8 +75,8 @@ public class Server {
             }
 
             try {
-                AdClienteGeral clienteGeral = new AdClienteGeralImpl(BD);
-                AdClienteGestao clienteGestao = new AdClienteGestaoImpl(BD);
+                AdClienteGeral clienteGeral = new AdClienteGeralImpl(BDGeral);
+                AdClienteGestao clienteGestao = new AdClienteGestaoImpl(BDGestao);
 
                 java.rmi.registry.Registry registry = java.rmi.registry.LocateRegistry.getRegistry(regPort);
 
@@ -96,7 +94,5 @@ public class Server {
         } catch (Exception ignored) {
 
         }
-        
-        BD.disconnect();
     }
 }
