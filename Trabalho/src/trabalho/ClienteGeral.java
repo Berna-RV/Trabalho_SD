@@ -77,6 +77,7 @@ public class ClienteGeral {
 
                             obj.registerOffer(tipo_alojamento_O, detalhes_O, zona_O,
                                     genero_O, preco_O, anunciante_O, contacto_O, data_O);
+                            break;
 
                         case 2:
                             System.out.println("Introduza as caracteristicas do anuncio:");
@@ -107,20 +108,25 @@ public class ClienteGeral {
 
                             obj.registerSearch(tipo_alojamento_P, detalhes_P, zona_P,
                                     genero_P, preco_P, anunciante_P, contacto_P, data_P);
+                            break;
                         case 3:
                             obj.listOfOffers();
+                            break;
                         case 4:
                             obj.listOfSearch();
+                            break;
                         case 5:
                             System.out.print("Anunciante:");
                             String anunciante = input.readLine();
 
                             obj.listByAdvertiser(anunciante);
+                            break;
                         case 6:
                             System.out.print("Aid:");
                             String aid = input.readLine();
 
                             obj.getDetails(aid);
+                            break;
                         case 7:
                             System.out.print("Aid:");
                             String aid_M = input.readLine();
@@ -129,15 +135,18 @@ public class ClienteGeral {
                             String mensagem = input.readLine();
 
                             obj.sendMessage(aid_M, mensagem);
+                            break;
                         case 8:
                             System.out.print("Aid:");
                             String aid_C = input.readLine();
 
-                            obj.consultMessages(regPort);
-                        case 9:
+                            obj.consultMessages(aid_C);
                             break;
+                        case 9:
+                            return;
                         default:
                             System.out.println("Introduza um valor possivel (1-8).");
+                            break;
                     }
                 } catch (Exception e) {
                     System.out.println("Tem que introduzir um numero.");

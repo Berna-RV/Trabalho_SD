@@ -24,7 +24,7 @@ public class AdClienteGestaoImpl extends UnicastRemoteObject implements AdClient
     public void listAdsByState(String estado) throws RemoteException {
 
         try {
-            ResultSet rs = stmt.executeQuery("SELECT * FROM anuncios WHERE estado=" + estado);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM anuncios WHERE estado='" + estado + "'");
 
             //mostrar resultados
             while (rs.next()) {
@@ -56,7 +56,7 @@ public class AdClienteGestaoImpl extends UnicastRemoteObject implements AdClient
     /*Obter detalhes de um anuncio*/
     public void getDetails(String aid) throws RemoteException {
         try {
-            ResultSet rs = stmt.executeQuery("SELECT * FROM anuncios WHERE aid=" + aid);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM anuncios WHERE aid='" + aid + "'");
 
             //mostrar resultados
             while (rs.next()) {
@@ -89,7 +89,7 @@ public class AdClienteGestaoImpl extends UnicastRemoteObject implements AdClient
     public void aprouveAd(String aid) throws RemoteException {
 
         try {
-            stmt.executeUpdate("update anuncios set estado='ativo' where aid=" + aid);
+            stmt.executeUpdate("update anuncios set estado='ativo' where aid='" + aid + "'");
 
         } catch (Exception e) {
             e.printStackTrace();

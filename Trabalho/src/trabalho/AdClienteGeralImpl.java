@@ -27,8 +27,8 @@ public class AdClienteGeralImpl extends UnicastRemoteObject implements AdCliente
             String genero, String preco, String anunciante, String contacto, String data) throws java.rmi.RemoteException {
 
         try {
-            stmt.executeUpdate("insert into anuncios values('oferta'," + tipo_alojamento + "," + detalhes + "," + zona + ","
-                    + genero + "," + preco + "," + anunciante + "," + contacto + "," + data + ", 'inativo' ," + Integer.toString(Server.getAid()) + ")");
+            stmt.executeUpdate("insert into anuncios values('oferta' ,'" + tipo_alojamento + "','" + detalhes + "','" + zona + "','"
+                    + genero + "','" + preco + "','" + anunciante + "','" + contacto + "','" + data + "', 'inativo' ,'" + Integer.toString(Server.getAid()) + "')");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,8 +41,8 @@ public class AdClienteGeralImpl extends UnicastRemoteObject implements AdCliente
             String genero, String preco, String anunciante, String contacto, String data) throws RemoteException {
 
         try {
-            stmt.executeUpdate("insert into anuncios values('procura'," + tipo_alojamento + "," + detalhes + "," + zona + ","
-                    + genero + "," + preco + "," + anunciante + "," + contacto + "," + data + ", 'inativo' ," + Integer.toString(Server.getAid()) + ")");
+            stmt.executeUpdate("insert into anuncios values('procura' ,'" + tipo_alojamento + "','" + detalhes + "','" + zona + "','"
+                    + genero + "','" + preco + "','" + anunciante + "','" + contacto + "','" + data + "', 'inativo' ,'" + Integer.toString(Server.getAid()) + "')");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -118,7 +118,7 @@ public class AdClienteGeralImpl extends UnicastRemoteObject implements AdCliente
     /*Listar todos os anuncios de um anunciante*/
     public void listByAdvertiser(String anunciante) throws RemoteException {
         try {
-            ResultSet rs = stmt.executeQuery("SELECT * FROM anuncios WHERE anunciante=" + anunciante);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM anuncios WHERE anunciante='" + anunciante +"'");
 
             //mostrar resultados
             while (rs.next()) {
@@ -149,7 +149,7 @@ public class AdClienteGeralImpl extends UnicastRemoteObject implements AdCliente
     /*Obter todos os detalhes de um anuncio, dado o seu aid*/
     public void getDetails(String aid) throws RemoteException {
         try {
-            ResultSet rs = stmt.executeQuery("SELECT * FROM anuncios WHERE aid=" + aid);
+            ResultSet rs = stmt.executeQuery("SELECT * FROM anuncios WHERE aid='" + aid +"'");
 
             //mostrar resultados
             while (rs.next()) {
@@ -181,7 +181,7 @@ public class AdClienteGeralImpl extends UnicastRemoteObject implements AdCliente
     public void sendMessage(String aid, String mensagem) throws RemoteException {
 
         try {
-            stmt.executeUpdate("insert into mensagens values(" + mensagem + "," + aid + ")");
+            stmt.executeUpdate("insert into mensagens values('" + mensagem + "','" + aid + "')");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -194,7 +194,7 @@ public class AdClienteGeralImpl extends UnicastRemoteObject implements AdCliente
     public void consultMessages(String aid) throws RemoteException {
 
         try {
-            ResultSet rs = stmt.executeQuery("SELECT mensagem FROM mensagens WHERE aid=" + aid);
+            ResultSet rs = stmt.executeQuery("SELECT mensagem FROM mensagens WHERE aid='" + aid + "'");
 
             //mostrar resultados
             while (rs.next()) {

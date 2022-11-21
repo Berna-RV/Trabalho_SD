@@ -55,12 +55,13 @@ public class Server {
             Statement stmt = BD.getStatement();
 
             //Obter o aid com maior numero!!!!
+            //Ainda n funciona!!!!!
             try {
 
                 int aid = 0;
                 ResultSet rs = stmt.executeQuery("SELECT MAX(aid) FROM anuncios");
 
-                if (rs.next()) {
+                while (rs.next()) {
 
                     if (rs.wasNull()) {
                         aid = 1;
