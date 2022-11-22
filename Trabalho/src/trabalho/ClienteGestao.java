@@ -72,7 +72,6 @@ public class ClienteGestao {
                             obj.modifyAd(estado4, aid4);
                             break;
                         case 5:
-                            obj.exit();
                             return;
                         default:
                             System.out.println("Introduzir um número válido.");

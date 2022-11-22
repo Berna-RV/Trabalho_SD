@@ -27,7 +27,7 @@ public class Server {
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
         PostgresConnector BDGeral = null;
-        PostgresConnector BDGestao =null;
+        PostgresConnector BDGestao = null;
         int regPort;
         String HOST;
         String DB;
@@ -52,19 +52,19 @@ public class Server {
 
             BDGeral = new PostgresConnector(HOST, DB, USER, PW);
             BDGeral.connect();
-            
+
             BDGestao = new PostgresConnector(HOST, DB, USER, PW);
             BDGestao.connect();
-            
+
             Statement stmt = BDGeral.getStatement();
 
             //Obter o aid com maior numero!!!!
             try {
-                
+
                 int aid = 0;
 
                 ResultSet rs = stmt.executeQuery("SELECT MAX(aid) as aid FROM anuncios");
-                if (rs.next() && rs.getInt("aid")!=0) {
+                if (rs.next() && rs.getInt("aid") != 0) {
                     aid = rs.getInt("aid");
                 }
 

@@ -113,9 +113,5 @@ public class AdClienteGestaoImpl extends UnicastRemoteObject implements AdClient
             e.printStackTrace();
             System.err.println("Problems on insert...");
         }
-    }
-    
-    public void exit(){
-        anuncios.disconnect();
-    }
+    }   
 }

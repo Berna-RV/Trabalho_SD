@@ -227,8 +227,4 @@ public class AdClienteGeralImpl extends UnicastRemoteObject implements AdCliente
         
         return messages;
     }
-    
-    public void exit(){
-        anuncios.disconnect();
-    }
 }

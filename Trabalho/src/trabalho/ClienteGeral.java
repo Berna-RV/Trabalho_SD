@@ -159,7 +159,6 @@ public class ClienteGeral {
                             }
                             break;
                         case 9:
-                            obj.exit();
                             return;
                         default:
                             System.out.println("Introduza um valor possivel (1-8).");

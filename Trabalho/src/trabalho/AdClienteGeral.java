@@ -34,8 +34,6 @@ public interface AdClienteGeral extends java.rmi.Remote {
     public void sendMessage(String aid, String mensagem) throws java.rmi.RemoteException;
     
     /*Consultar as mensagens inseridas para um determinado anúncio*/
-    public List<String> consultMessages(String aid) throws java.rmi.RemoteException; 
-    
-    public void exit() throws java.rmi.RemoteException;
+    public List<String> consultMessages(String aid) throws java.rmi.RemoteException;
 
 }

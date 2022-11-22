@@ -19,6 +19,4 @@ public interface AdClienteGestao extends java.rmi.Remote {
     
     /*Alterar o estado de um anuncio*/
     public void modifyAd(String estado , String aid) throws java.rmi.RemoteException;  
-    
-    public void exit() throws java.rmi.RemoteException;
 }
