@@ -1,0 +1,1 @@
+rmiregistry -J-classpath -Jbuild/classes 1099
