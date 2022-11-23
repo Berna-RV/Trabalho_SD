@@ -29,7 +29,7 @@ public class ClienteGestao {
             AdClienteGestao obj = (AdClienteGestao) java.rmi.Naming.lookup("rmi://" + regHost + ":" + regPort + "/AdClienteGestao");
             while (true) {
 
-                System.out.println("Selecinar a opção:\n"
+                System.out.println("\n Selecinar a opção:\n"
                         + "  1: Listar anuncios por estado\n"
                         + "  2: Obter detalhes de um anuncio\n"
                         + "  3: Aprovar um anuncio, alterando o estado do mesmo para ativo\n"
@@ -44,7 +44,7 @@ public class ClienteGestao {
 
                     switch (opcao) {
                         case 1:
-                            System.out.println("Estado:");
+                            System.out.println("Estado: ");
                             String estado1 = input.readLine();
                             List<String> adsByState= obj.listAdsByState(estado1);
                             
@@ -53,20 +53,20 @@ public class ClienteGestao {
                             }
                             break;
                         case 2:
-                            System.out.println("Aid:");
+                            System.out.println("Aid: ");
                             String aid2 = input.readLine();
                             String details= obj.getDetails(aid2);
                             System.out.println(details);
                             break;
                         case 3:
-                            System.out.println("Aid:");
+                            System.out.println("Aid: ");
                             String aid3 = input.readLine();
                             obj.aprouveAd(aid3);
                             break;
                         case 4:
-                            System.out.println("Estado:");
+                            System.out.println("Estado: ");
                             String estado4 = input.readLine();
-                            System.out.println("Aid:");
+                            System.out.println("Aid: ");
                             String aid4 = input.readLine();
 
                             obj.modifyAd(estado4, aid4);

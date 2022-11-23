@@ -51,28 +51,28 @@ public class ClienteGeral {
                         case 1:
                             System.out.println("Introduza as caracteristicas do anuncio:");
 
-                            System.out.print("Tipo de alojamento:");
+                            System.out.print("Tipo de alojamento: ");
                             String tipo_alojamento_O = input.readLine();
 
-                            System.out.print("Detalhes");
+                            System.out.print("Detalhes: ");
                             String detalhes_O = input.readLine();
 
-                            System.err.print("Zona:");
+                            System.err.print("Zona: ");
                             String zona_O = input.readLine();
 
-                            System.out.print("Genero:");
+                            System.out.print("Genero: ");
                             String genero_O = input.readLine();
 
-                            System.err.print("Preço:");
+                            System.err.print("Preço: ");
                             String preco_O = input.readLine();
 
-                            System.out.print("Anunciante:");
+                            System.out.print("Anunciante: ");
                             String anunciante_O = input.readLine();
 
-                            System.out.print("Contacto:");
+                            System.out.print("Contacto: ");
                             String contacto_O = input.readLine();
 
-                            System.out.print("Data:");
+                            System.out.print("Data: ");
                             String data_O = input.readLine();
 
                             obj.registerOffer(tipo_alojamento_O, detalhes_O, zona_O,
@@ -82,28 +82,28 @@ public class ClienteGeral {
                         case 2:
                             System.out.println("Introduza as caracteristicas do anuncio:");
 
-                            System.out.print("Tipo de alojamento:");
+                            System.out.print("Tipo de alojamento: ");
                             String tipo_alojamento_P = input.readLine();
 
-                            System.out.print("Detalhes");
+                            System.out.print("Detalhes: ");
                             String detalhes_P = input.readLine();
 
-                            System.err.print("Zona:");
+                            System.err.print("Zona: ");
                             String zona_P = input.readLine();
 
-                            System.out.print("Genero:");
+                            System.out.print("Genero: ");
                             String genero_P = input.readLine();
 
-                            System.err.print("Preço:");
+                            System.err.print("Preço: ");
                             String preco_P = input.readLine();
 
-                            System.out.print("Anunciante:");
+                            System.out.print("Anunciante: ");
                             String anunciante_P = input.readLine();
 
-                            System.out.print("Contacto:");
+                            System.out.print("Contacto: ");
                             String contacto_P = input.readLine();
 
-                            System.out.print("Data:");
+                            System.out.print("Data: ");
                             String data_P = input.readLine();
 
                             obj.registerSearch(tipo_alojamento_P, detalhes_P, zona_P,
@@ -122,7 +122,7 @@ public class ClienteGeral {
                             }
                             break;
                         case 5:
-                            System.out.print("Anunciante:");
+                            System.out.print("Anunciante: ");
                             String anunciante = input.readLine();
 
                             List<String> adsByAdvertiser= obj.listByAdvertiser(anunciante);
@@ -132,7 +132,7 @@ public class ClienteGeral {
                             }
                             break;
                         case 6:
-                            System.out.print("Aid:");
+                            System.out.print("Aid: ");
                             String aid = input.readLine();
 
                             String details = obj.getDetails(aid);
@@ -140,16 +140,16 @@ public class ClienteGeral {
                             System.out.println(details);
                             break;
                         case 7:
-                            System.out.print("Aid:");
+                            System.out.print("Aid: ");
                             String aid_M = input.readLine();
 
-                            System.out.print("Mensagem:");
+                            System.out.print("Mensagem: ");
                             String mensagem = input.readLine();
 
                             obj.sendMessage(aid_M, mensagem);
                             break;
                         case 8:
-                            System.out.print("Aid:");
+                            System.out.print("Aid: ");
                             String aid_C = input.readLine();
 
                             List<String> messages= obj.consultMessages(aid_C);
